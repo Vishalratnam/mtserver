@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"errors"
 
 	"github.com/spf13/cobra"
 )
@@ -12,21 +12,13 @@ var runCmd = &cobra.Command{
 	Short: "Start a webserver",
 	// TODO: Add a description here
 	Long: ``,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("run called")
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return errors.New("Provide subcommand")
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(runCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// runCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// runCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	runCmd.PersistentFlags().IntP("port", "p", 9000, "Port number to listen on")
 }
